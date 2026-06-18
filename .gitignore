@@ -217,3 +217,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Mac files
+*.DS_Store
+
+# keep data/tower folder empty
+/data/tower/*.csv
+/data/tower/*.xlsx
