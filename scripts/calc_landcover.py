@@ -23,12 +23,22 @@ lc_path = "data/landcover/ESA_WorldCover_10m_2021_v200_N45W090_Map.tif"
 # set water value associated wiht lc product
 water_val = 80
 
-# path to footprint kml
+# dir containing kml files
+kml_dir = "data/footprint"
+
 # kml_path = "data/footprint/footprints.kml"
 kml_path = "data/footprint/footprints_US-Syv_Zoe.kml"
 
-# read in footprint kml
-fp = gpd.read_file(kml_path)
+# read in all kmls in folder and put in one gdf
+all_gdfs = []
+
+for f in os.listdir(kml_dir):
+    if f.endswith(".kml"):
+        path = os.path.join(kml_dir, f)
+        gdf = gpd.read_file(path)
+        all_gdfs.append(gdf)
+
+fp = pd.concat(all_gdfs, ignore_index=True)
 
 # keep only rows where the name is a timestep
 fp = fp[fp["Name"].str.match(r"^\d{12}$")]
