@@ -25,12 +25,15 @@ water_val = 80
 
 # path to footprint kml
 # kml_path = "data/footprint/footprints.kml"
-kml_path = "/Users/adrianacaswell/Documents/Work/CUBioMet/Fluxcourse/FluxCourseProject/footprints_US-Syv_Zoe.kml"
+kml_path = "data/footprint/footprints_US-Syv_Zoe.kml"
 
 # read in footprint kml
 fp = gpd.read_file(kml_path)
 
-# initialize list ot add results to
+# keep only rows where the name is a timestep
+fp = fp[fp["Name"].str.match(r"^\d{12}$")]
+
+# initialize list to add results to
 rows = []
 
 # open land cover data
